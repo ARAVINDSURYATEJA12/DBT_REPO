@@ -1,19 +1,19 @@
-with trips as (
+WITH TRIPS AS (
 
-    select 
-        ride_id,
-        rideable_type,
+    SELECT 
+        RIDE_ID,
+        -- RIDEABLE_TYPE,
         
-        date(TRY_TO_TIMESTAMP(started_at)) as trip_date,
-        start_statio_id,
-        end_station_id,
-        member_csual,
+        DATE(TRY_TO_TIMESTAMP(STARTED_AT)) AS TRIP_DATE,
+        START_STATIO_ID,
+        END_STATION_ID,
+        MEMBER_CSUAL,
         
-        timestampdiff(second, TRY_TO_TIMESTAMP(started_at), TRY_TO_TIMESTAMP(ended_at)) as time_duration_seconds
-    from {{ ref('stg_bike') }}
+        TIMESTAMPDIFF(second, TRY_TO_TIMESTAMP(STARTED_AT), TRY_TO_TIMESTAMP(ENDED_AT)) AS TIME_DURATION_SECONDS
+    FROM {{ ref('stg_bike') }}
 
-    where ride_id != '"bikeid"' and ride_id != 'bikeid'
-    limit 10
+    WHERE RIDE_ID != '"BIKEID"' AND RIDE_ID != 'BIKEID'
+    LIMIT 10
 )
 
-select * from trips
+SELECT * FROM TRIPS
